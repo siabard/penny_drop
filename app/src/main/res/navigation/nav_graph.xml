@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/gameFragment"
+    android:id="@+id/nav_graph.xml">
+
+    <fragment
+        android:id="@+id/pickPlayersFragment"
+        android:name="net.izelon.pennydrop.fragments.PickPlayersFragment"
+        android:label="fragment_pick_players" />
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="net.izelon.pennydrop.fragments.GameFragment"
+        android:label="fragment_game"
+        />
+</navigation>

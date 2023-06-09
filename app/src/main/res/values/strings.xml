@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">PennyDrop</string>
+    <string name="pick_players_fragment">Pick Players Fragment</string>
+    <string name="game_fragment">Game Fragment</string>
+    <string name="players">Players</string>
+    <string name="game">Game</string>
+    <string name="play_button">Play</string>
+    <string name="player_name">Name</string>
+    <string name="roll">Roll</string>
+    <string name="or">Or</string>
+    <string name="pass">Pass</string>
+    <string name="coin_icon">Coin Icon</string>
+    <string name="na">Not Available</string>
+</resources>
