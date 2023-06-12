@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import net.izelon.pennydrop.game.GameHandler
+import net.izelon.pennydrop.game.TurnEnd
 import net.izelon.pennydrop.game.TurnResult
 import net.izelon.pennydrop.types.Player
 import net.izelon.pennydrop.types.Slot
@@ -14,8 +15,8 @@ import net.izelon.pennydrop.types.clear
 class GameViewModel : ViewModel() {
     private var players: List<Player> = emptyList()
 
-    val slots = MutableLiveData((1..6).map { slotnum ->
-        Slot(slotnum, slotnum < 6)
+    val slots = MutableLiveData((1..6).map { slotNum ->
+        Slot(slotNum, slotNum < 6)
     })
 
     val currentPlayer = MutableLiveData<Player?>()
@@ -34,7 +35,7 @@ class GameViewModel : ViewModel() {
         this.currentPlayer.value = this.players.firstOrNull().apply {
             this?.isRolling = true
         }
-        this.canRoll.value = true
+        canRoll.value = true
         canPass.value = false
 
         slots.value?.clear()
@@ -143,8 +144,10 @@ class GameViewModel : ViewModel() {
                     |$currentPlayerName is the winner!
                     |
                     |${generateCurrentStandings(this.players, "Final Scores:\n")}
-                    }}
                 """.trimIndent()
+            result.turnEnd == TurnEnd.Bust -> "${ohNoPhrases.shuffled().first()} ${result.previousPlayer?.playerName} rolled ${result.lastRoll}. They collected ${result.coinChangeCount} pennies for a total of ${result.previousPlayer?.pennies}\n$currentText"
+            result.turnEnd == TurnEnd.Pass -> "${result.previousPlayer?.playerName} passed. They currently have ${result.previousPlayer?.pennies} pennies.\n$currentText"
+
             result.lastRoll != null ->
                 "$currentText\n$currentPlayerName rolled a ${result.lastRoll}"
             else -> ""
@@ -173,4 +176,13 @@ class GameViewModel : ViewModel() {
             }
         }
     }
+
+    private val ohNoPhrases = listOf(
+        "Oh no!",
+        "Bummer",
+        "Dang.",
+        "Whoops",
+        "Ah, fiddlesticks.",
+
+    )
 }
