@@ -1,26 +1,35 @@
 package net.izelon.pennydrop.game
 
+import net.izelon.pennydrop.types.Player
 import net.izelon.pennydrop.types.Slot
 import net.izelon.pennydrop.types.fullSlots
 
 data class AI(
+    val aiId : Long = 0,
     val name: String,
     val rollAgain: (slots: List<Slot>) -> Boolean
 ) {
     override fun toString() = name
 
 
+    fun toPlayer() = Player (
+        playerId = aiId,
+        playerName = name,
+        isHuman = false,
+        selectedAI = this
+    )
+
     companion object {
         @JvmStatic
         val basicAI = listOf(
-            AI("TwoFace") { slots -> slots.fullSlots() < 3 || (slots.fullSlots() == 3 && coinFlipHeads()) },
-            AI("No Go Noah") { slots -> slots.fullSlots() == 0 },
-            AI("Bail out Beulah") { slots -> slots.fullSlots() <= 1 },
-            AI("Fearful Fred") { slots -> slots.fullSlots() <= 2 },
-            AI("Even Steven") { slots -> slots.fullSlots() <= 3 },
-            AI("Riverboat Ron") { slots -> slots.fullSlots() <= 4 },
-            AI("Sammy Sixties") { slots -> slots.fullSlots() <= 5 },
-            AI("Random Rachael") { coinFlipHeads() }
+            AI(1, "TwoFace") { slots -> slots.fullSlots() < 3 || (slots.fullSlots() == 3 && coinFlipHeads()) },
+            AI(2, "No Go Noah") { slots -> slots.fullSlots() == 0 },
+            AI(3, "Bail out Beulah") { slots -> slots.fullSlots() <= 1 },
+            AI(4, "Fearful Fred") { slots -> slots.fullSlots() <= 2 },
+            AI(5, "Even Steven") { slots -> slots.fullSlots() <= 3 },
+            AI(6, "Riverboat Ron") { slots -> slots.fullSlots() <= 4 },
+            AI(7, "Sammy Sixties") { slots -> slots.fullSlots() <= 5 },
+            AI(8, "Random Rachael") { coinFlipHeads() }
         )
     }
 }

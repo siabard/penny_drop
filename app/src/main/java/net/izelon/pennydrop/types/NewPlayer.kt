@@ -3,7 +3,7 @@ package net.izelon.pennydrop.types
 import androidx.databinding.ObservableBoolean
 import net.izelon.pennydrop.game.AI
 
-data class NewPlayer (
+data class NewPlayer(
     var playerName: String = "",
     val isHuman: ObservableBoolean = ObservableBoolean(true),
     val canBeRemoved: Boolean = true,
@@ -17,13 +17,13 @@ data class NewPlayer (
         null
     }
 
-    fun toPlayer() = Player (
-        if(this.isHuman.get()) {
+    fun toPlayer() = Player(
+        playerName = if (this.isHuman.get()) {
             this.playerName
         } else {
             (this.selectedAI()?.name ?: "AI")
         },
-        this.isHuman.get(),
-        this.selectedAI()
-            )
+        isHuman = this.isHuman.get(),
+        selectedAI = this.selectedAI()
+    )
 }
